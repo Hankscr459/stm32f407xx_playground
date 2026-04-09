@@ -1,0 +1,56 @@
+# =========================
+# Build outputs
+# =========================
+Debug/
+Release/
+build/
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.map
+*.list
+
+# =========================
+# STM32CubeIDE / Eclipse
+# =========================
+.project
+.cproject
+.settings/
+
+# Launch / debug configs
+*.launch
+
+# =========================
+# Linker output
+# =========================
+*.ld.bak
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs / temp
+# =========================
+*.log
+*.tmp
+
+# =========================
+# Backup files
+# =========================
+*~
+*.bak
+*.swp
+*.swo
