@@ -191,6 +191,22 @@ typedef struct
 }EXTI_RegDef_t;
 
 /*
+ * peripheral register definition structure for SPI
+ */
+typedef struct
+{
+	__vo uint32_t CR1;        /*!< TODO,     										Address offset: 0x00 */
+	__vo uint32_t CR2;        /*!< TODO,     										Address offset: 0x04 */
+	__vo uint32_t SR;         /*!< TODO,     										Address offset: 0x08 */
+	__vo uint32_t DR;         /*!< TODO,     										Address offset: 0x0C */
+	__vo uint32_t CRCPR;      /*!< TODO,     										Address offset: 0x10 */
+	__vo uint32_t RXCRCR;     /*!< TODO,     										Address offset: 0x14 */
+	__vo uint32_t TXCRCR;     /*!< TODO,     										Address offset: 0x18 */
+	__vo uint32_t I2SCFGR;    /*!< TODO,     										Address offset: 0x1C */
+	__vo uint32_t I2SPR;      /*!< TODO,     										Address offset: 0x20 */
+} SPI_RegDef_t;
+
+/*
  * peripheral register definition structure for SYSCFG
  */
 typedef struct
@@ -290,14 +306,6 @@ typedef struct
 
 
 
-/*
- * Clock Enable Macros for SPIx peripherals
- */
-#define SPI1_PCLK_EN() (RCC->APB2ENR |= (1 << 12))
-#define SPI2_PCLK_EN() (RCC->APB1ENR |= (1 << 14))
-#define SPI3_PCLK_EN() (RCC->APB1ENR |= (1 << 15))
-#define SPI4_PCLK_EN() (RCC->APB2ENR |= (1 << 13))
-
 
 
 /*
@@ -386,5 +394,6 @@ typedef struct
 #define GPIO_PIN_RESET   RESET
 
 #include "stm32f407xx_gpio_driver.h"
+#include "stm32f407xx_spi_driver.h"
 
 #endif /* INC_STM32F407XX_H_ */
