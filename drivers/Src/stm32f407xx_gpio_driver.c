@@ -390,7 +390,7 @@ void GPIO_IRQInterruptConfig(uint8_t IRQNumber, uint8_t EnorDi)
  * @brief             -
  *
  * @param[in]         -
- * @param[in]         -
+ * @param[in]         - @IRQPriority NVIC register 是 32-bit NVIC_IPR[x]  // 每個是 32-bit,所以要用uint32_t 不能用 uint8_t 
  * @param[in]         -
  *
  * @return            -
@@ -408,7 +408,13 @@ void GPIO_IRQPriorityConfig(uint8_t IRQNumber,uint32_t IRQPriority)
 	// 這裡的NO_PR_BITS_IMPLEMENTED值是4, 表示 只有高 4 bit 有效（bit[7:4], [15:8], [23:16], [31:24]）低 4 bit（bit[3:0]....）會被忽略
 	uint8_t shift_amount = ( 8 * iprx_section) + ( 8 - NO_PR_BITS_IMPLEMENTED) ;
 
+	// ptr + n 實際上是： 位址 + (n × sizeof(*ptr))
 	*(  NVIC_PR_BASE_ADDR + iprx ) |=  ( IRQPriority << shift_amount );
+
+
+	// 錯誤寫法
+	// 因為 指標加法本來就會自動乘上型別大小, 這代表： NVIC_PR_BASE_ADDR 是 uint32_t* 指標 每往前 +1，其實是： 位址 + 4 bytes
+	// (NVIC_PR_BASE_ADDR + (iprx * 4)) |= (IRQPriority << shift_amount);
 
 }
 

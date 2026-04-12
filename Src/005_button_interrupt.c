@@ -48,9 +48,11 @@ int main(void)
 
 	GPIO_Init(&GPIOBtn);
 
-	// IQR configurations
+	// IRQ configurations
 	GPIO_IRQPriorityConfig(IRQ_NO_EXTI9_5, NVIC_IRQ_PRI15);
 	GPIO_IRQInterruptConfig(IRQ_NO_EXTI9_5, ENABLE);
+
+	while(1);
 
 	return 0;
 }

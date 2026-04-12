@@ -223,6 +223,10 @@ typedef struct
 #define EXTI				((EXTI_RegDef_t*)EXTI_BASEADDR)
 #define SYSCFG				((SYSCFG_RegDef_t*)SYSCFG_BASEADDR)
 
+#define SPI1  				((SPI_RegDef_t*)SPI1_BASEADDR)
+#define SPI2  				((SPI_RegDef_t*)SPI2_BASEADDR)
+#define SPI3  				((SPI_RegDef_t*)SPI3_BASEADDR)
+
 /*
  * Clock Enable Macros for GPIO peripherals
  */
@@ -287,9 +291,12 @@ typedef struct
 
 
 /*
- * Clock DisEnable Macros for SPIx peripherals
+ * Clock Enable Macros for SPIx peripherals
  */
-
+#define SPI1_PCLK_EN() (RCC->APB2ENR |= (1 << 12))
+#define SPI2_PCLK_EN() (RCC->APB1ENR |= (1 << 14))
+#define SPI3_PCLK_EN() (RCC->APB1ENR |= (1 << 15))
+#define SPI4_PCLK_EN() (RCC->APB2ENR |= (1 << 13))
 
 
 
