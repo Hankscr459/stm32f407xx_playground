@@ -108,6 +108,7 @@
  */
 #define EXTI_BASEADDR                 (APB2PERIPH_BASEADDR + 0x3C00)
 #define SPI1_BASEADDR                 (APB2PERIPH_BASEADDR + 0x3000)
+#define SPI4_BASEADDR                 (APB2PERIPH_BASEADDR + 0x3400)
 #define SYSCFG_BASEADDR               (APB2PERIPH_BASEADDR + 0x3800)
 #define USART1_BASEADDR               (APB2PERIPH_BASEADDR + 0x1000)
 #define USART6_BASEADDR               (APB2PERIPH_BASEADDR + 0x1400)
@@ -242,6 +243,7 @@ typedef struct
 #define SPI1  				((SPI_RegDef_t*)SPI1_BASEADDR)
 #define SPI2  				((SPI_RegDef_t*)SPI2_BASEADDR)
 #define SPI3  				((SPI_RegDef_t*)SPI3_BASEADDR)
+#define SPI4  				((SPI_RegDef_t*)SPI4_BASEADDR)
 
 /*
  * Clock Enable Macros for GPIO peripherals
@@ -414,6 +416,15 @@ typedef struct
 #define SPI_CR1_CRCEN   			 	13
 #define SPI_CR1_BIDIOE     			 	14
 #define SPI_CR1_BIDIMODE      			15
+
+
+/*
+ * Macros to reset SPIx peripherals
+ */
+#define SPI1_REG_RESET()                   do{ (RCC->APB2RSTR |= (1 << 12)); (RCC->APB2RSTR &= ~(1 << 12)); }while(0)
+#define SPI2_REG_RESET()                   do{ (RCC->APB1RSTR |= (1 << 14)); (RCC->APB1RSTR &= ~(1 << 14)); }while(0)
+#define SPI3_REG_RESET()                   do{ (RCC->APB1RSTR |= (1 << 15)); (RCC->APB1RSTR &= ~(1 << 15)); }while(0)
+#define SPI4_REG_RESET()                   do{ (RCC->APB2RSTR |= (1 << 13)); (RCC->APB1RSTR &= ~(1 << 13)); }while(0)
 
 #include "stm32f407xx_gpio_driver.h"
 #include "stm32f407xx_spi_driver.h"

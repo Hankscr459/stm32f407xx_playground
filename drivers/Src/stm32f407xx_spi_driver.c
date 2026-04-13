@@ -109,3 +109,34 @@ void SPI_Init(SPI_Handle_t *pSPIHandle)
 	pSPIHandle->pSPIx->CR1 = tempreg;
 
 }
+
+/*********************************************************************
+ * @fn      		  - SPI_DeInit
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              -
+
+ */
+void SPI_DeInit(SPI_RegDef_t *pSPIx)
+{
+	if (pSPIx == SPI1)
+	{
+		SPI1_REG_RESET();
+	} else if (pSPIx == SPI2)
+	{
+		SPI2_REG_RESET();
+	} else if (pSPIx == SPI3)
+	{
+		SPI3_REG_RESET();
+	} else if (pSPIx == SPI4)
+	{
+		SPI4_REG_RESET();
+	}
+}
