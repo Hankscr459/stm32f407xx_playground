@@ -140,3 +140,58 @@ void SPI_DeInit(SPI_RegDef_t *pSPIx)
 		SPI4_REG_RESET();
 	}
 }
+
+uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName)
+{
+	if(pSPIx->SR & FlagName)
+	{
+		return FLAG_SET;
+	}
+	return FLAG_RESET;
+}
+
+
+/*********************************************************************
+ * @fn      		  - SPI_SendData
+ *
+ * @brief             -
+ *
+ * @param[in]         -
+ * @param[in]         -
+ * @param[in]         -
+ *
+ * @return            -
+ *
+ * @Note              - This is blocking call
+
+ */
+void SPI_SendData(SPI_RegDef_t *pSPIx,uint8_t *pTxBuffer, uint32_t Len)
+{
+	while(Len > 0)
+	{
+		//1. wait until TXE is set
+		// 只要條件成立（TXE 是 0, Tx buffer not empty ），程式就會卡在這一行重複檢查。
+		while(SPI_GetFlagStatus(pSPIx,SPI_TXE_FLAG)  == FLAG_RESET );
+
+		//2. check the DFF bit in CR1
+		// 它會拿 SPI 控制暫存器 CR1 的實際內容，去比對遮罩( 1 << SPI_CR1_DFF)
+		// 如果 CR1 的第 11 位是 1：視為 True
+		// 如果 CR1 的第 11 位是 0：視為 False
+		if( (pSPIx->CR1 & ( 1 << SPI_CR1_DFF) ) )
+		{
+			//16 bit DFF
+			//1. load the data in to the DR
+			pSPIx->DR =   *((uint16_t*)pTxBuffer);
+			Len--;
+			Len--;
+			(uint16_t*)pTxBuffer++;
+		}else
+		{
+			//8 bit DFF
+			pSPIx->DR =   *pTxBuffer;
+			Len--;
+			pTxBuffer++;
+		}
+	}
+
+}
