@@ -84,6 +84,10 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 	// 暫存用的 bit mask（位元遮罩）=> 把你的設定值，轉換成「可以直接寫進暫存器的格式」
 	uint32_t temp = 0; // temp. register
 
+	//enable the peripheral clock
+
+	 GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
+
 	// 1. configure the mode of gpio pin
 
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
