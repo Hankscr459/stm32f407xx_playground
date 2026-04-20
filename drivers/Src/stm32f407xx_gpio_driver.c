@@ -98,7 +98,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 		temp = (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode << (2 * pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber));
 		// &= ~() 只清掉目標 bits，不動其他
 		pGPIOHandle->pGPIOx->MODER &= ~( 0x3 << pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber); // clearing
-		pGPIOHandle->pGPIOx->MODER = temp; // setting
+		pGPIOHandle->pGPIOx->MODER |= temp; // setting
 	} else
 	{
 		//this part will code later . ( interrupt mode)
@@ -163,7 +163,7 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 	if (pGPIOHandle->GPIO_PinConfig.GPIO_PinMode == GPIO_MODE_ALTFN)
 	{
 		// configure the alt function register.
-		uint32_t temp1, temp2;
+		uint8_t temp1, temp2;
 
 		// 除以8 => temp1 > 1 alt function high register, temp1 < 1 alt function low register
 		temp1 = pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber / 8;
