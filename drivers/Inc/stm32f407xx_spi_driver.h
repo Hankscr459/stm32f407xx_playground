@@ -150,7 +150,10 @@ void SPI_IRQHandling(SPI_Handle_t *pHandle);
  * Other Peripheral Control APIs
  */
 void SPI_PeripheralControl(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+// SSI = Internal Slave Select, 它主要出現在 軟體管理 NSS（SSM = 1） 的情況下，用來「模擬」外部的 NSS 腳位狀態
 void SPI_SSIConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
+// SSOE = Slave Select Output Enable（NSS 輸出使能）,SPI 硬體要不要「自動幫你控制 NSS 腳位」
+void SPI_SSOEConfig(SPI_RegDef_t *pSPIx, uint8_t EnOrDi);
 uint8_t SPI_GetFlagStatus(SPI_RegDef_t *pSPIx , uint32_t FlagName);
 
 
